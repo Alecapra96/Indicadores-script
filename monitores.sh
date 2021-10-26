@@ -56,7 +56,7 @@ sudo apt -y install sssd-ad sssd-tools realmd adcli sed
 echo "Preparando para unir al dominio"
 wait 5000
 nombreEquipo = hostname
-sudo hostnamectl set-hostname $nombreEquipo.lavoz.local
+sudo sed -i "s/${nombreEquipo}/${nombreEquipo}.localhost/g" /etc/hosts
 # Editar el archivo /etc/hosts
 # En la fila que comienza por 127.0.1.1 colocar el nombre del equipo utilizando el formato FQDN
 # 127.0.1.1 NOMBRE-DEL-EQUIPO.lavoz.local
