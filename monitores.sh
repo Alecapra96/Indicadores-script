@@ -36,7 +36,7 @@ sudo mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
 echo "Instalo programas base" 
-sudo apt -y install  rdesktop slim 
+sudo apt -y install  rdesktop slim rxvt-unicode
 
 echo "Remuevo cosas que ocupan espacio"
 sudo apt -y remove snapd
@@ -49,7 +49,7 @@ sudo apt -y install ./google-chrome-stable_current_amd64.deb
 
 echo "Hago el autologin"
 sudo rm /etc/slim.conf
-sudo mv ~/indidicadores-script/slim.conf /etc/
+sudo mv ~/indicadores-script/slim.conf /etc/
 
 echo "Haciendo ajustes finales..."
 wait 2000
