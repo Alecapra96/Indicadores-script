@@ -51,6 +51,15 @@ echo "Hago el autologin"
 sudo rm /etc/slim.conf
 sudo mv ~/indicadores-script/slim.conf /etc/
 
+echo "Dependencias para unir al dominio"
+sudo apt -y install sssd-ad sssd-tools realmd adcli sed
+echo "Preparando para unir al dominio"
+wait 5000
+nombreEquipo = hostname
+sudo hostnamectl set-hostname $nombreEquipo.lavoz.local
+# Editar el archivo /etc/hosts
+# En la fila que comienza por 127.0.1.1 colocar el nombre del equipo utilizando el formato FQDN
+# 127.0.1.1 NOMBRE-DEL-EQUIPO.lavoz.local
 echo "Haciendo ajustes finales..."
 wait 2000
 echo "Script ejectuado.."
