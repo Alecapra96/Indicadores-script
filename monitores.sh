@@ -18,7 +18,7 @@ sudo make install
 cd ../sxhkd/
 make
 sudo make install
-sudo apt install bspwm
+sudo apt -y install bspwm
 echo "Creo Los archivos de configuracion"
 mkdir ~/.config
 mkdir ~/.config/bspwm
@@ -31,7 +31,7 @@ cp examples/sxhkdrc ~/.config/sxhkd/
 echo "Instalo el script de startx"
 sudo apt -y install xinit
 echo "Creo el archivo .xinitrc"
-sudo mv ~/Monitores-script/.xinitrc ~/.xinitrc
+sudo mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
 
@@ -44,14 +44,12 @@ sudo apt -y purge snapd
 
 
 echo "Instalo google chrome"
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-sudo apt -y update
-sudo apt -y install google-chrome-stable
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt -y install ./google-chrome-stable_current_amd64.deb
 
 echo "Hago el autologin"
 sudo rm /etc/slim.conf
-sudo mv ~/Monitores-script/slim.conf /etc/
+sudo mv ~/indidicadores-script/slim.conf /etc/
 
 echo "Haciendo ajustes finales..."
 wait 2000
