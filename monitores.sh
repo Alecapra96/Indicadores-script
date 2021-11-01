@@ -50,7 +50,7 @@ sudo apt -y install ./google-chrome-stable_current_amd64.deb
 
 echo "Hago el autologin"
 sudo rm /etc/slim.conf
-sudo mv ~/indicadores-script/slim.conf /etc/
+sudo cp ~/indicadores-script/slim.conf /etc/
 
 echo "Dependencias para unir al dominio"
 sudo apt -y install sssd-ad sssd-tools realmd adcli sed 
@@ -66,10 +66,10 @@ sudo rm /etc/systemd/timesyncd.conf
 sudo touch /etc/systemd/timesyncd.conf
 sudo rm /etc/systemd/resolved.conf
 sudo touch /etc/systemd/resolved.conf
-sudo su
-echo -e "[Resolve] \nDomains=lavoz.local">> /etc/systemd/resolved.conf
-echo -e "[Time] \nNTP=VSRV-DC01.lavoz.local \nFallbackNTP=VSRV-DC02.lavoz.local \n#RootDistanceMaxSec=5 \n#PoolIntervalMinSec=32 \n#PoolIntervalMaxSec=2048">> /etc/systemd/timesyncd.conf
-exit
+
+sudo echo -e "[Resolve] \nDomains=lavoz.local">> /etc/systemd/resolved.conf
+sudo echo -e "[Time] \nNTP=VSRV-DC01.lavoz.local \nFallbackNTP=VSRV-DC02.lavoz.local \n#RootDistanceMaxSec=5 \n#PoolIntervalMinSec=32 \n#PoolIntervalMaxSec=2048">> /etc/systemd/timesyncd.conf
+
 realm discover lavoz.local
 sleep 5
 read -p "Ingrese el usuario del dominio: " usuarioAD
