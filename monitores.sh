@@ -59,18 +59,17 @@ sudo apt-get -y install realmd packagekit
 
 echo "Preparando para unir al dominio"
 wait 5000
-nombreEquipo = hostname
+nombreEquipo=hostname
 sudo sed -i "1s+.*+${nombreEquipo}.lavoz.local+g" /etc/hostname
 sudo sed -i "2s+.*+127.0.1.1       ${nombreEquipo}.lavoz.local+g" /etc/hosts
 sudo rm /etc/systemd/timesyncd.conf
-sudo touch /etc/systemd/timesyncd.conf
 sudo rm /etc/systemd/resolved.conf
-sudo touch /etc/systemd/resolved.conf
 
-sudo echo -e "[Resolve] \nDomains=lavoz.local">> /etc/systemd/resolved.conf
-sudo echo -e "[Time] \nNTP=VSRV-DC01.lavoz.local \nFallbackNTP=VSRV-DC02.lavoz.local \n#RootDistanceMaxSec=5 \n#PoolIntervalMinSec=32 \n#PoolIntervalMaxSec=2048">> /etc/systemd/timesyncd.conf
-
-realm discover lavoz.local
+sudo echo -e "[Resolve] \nDomains=lavoz.local">> ~/resolved.conf
+sudo echo -e "[Time] \nNTP=VSRV-DC01.lavoz.local \nFallbackNTP=VSRV-DC02.lavoz.local \n#RootDistanceMaxSec=5 \n#PoolIntervalMinSec=32 \n#PoolIntervalMaxSec=2048">> ~/timesyncd.conf
+sudo mv ~/resolved.conf /etc/systemd/resolved.conf
+sudo mv  ~/timesyncd.conf /etc/systemd/timesyncd.conf
+sudo realm discover lavoz.local
 sleep 5
 read -p "Ingrese el usuario del dominio: " usuarioAD
 sudo realm join -U ${usuarioAD} lavoz.local
