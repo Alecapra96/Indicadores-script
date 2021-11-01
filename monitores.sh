@@ -6,6 +6,7 @@ wait 2000
 echo "Iniciando"
 echo "Actualizo el sistema"
 sudo apt -y install && sudo apt -y upgrade
+echo $?
 
 echo "Instalo dependencias bases"
 sudo apt -y install --no-install-suggests --no-install-recommends xserver-xorg-core software-properties-common broadcom-sta-dkms cmake libfreetype6-dev libfontconfig1-dev xclip build-essential libx11-dev libxft-dev xterm build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev 
