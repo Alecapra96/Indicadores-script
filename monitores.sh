@@ -51,7 +51,10 @@ sudo apt -y install ./google-chrome-stable_current_amd64.deb
 echo "Hago el autologin"
 sudo rm /etc/slim.conf
 sudo cp ~/indicadores-script/slim.conf /etc/
-
+sleep 2
+echo "Escriba 1 para unir la maquina al dominio, escriba 2 para terminar el script."
+read "texto"
+if [ "$texto" = "1" ]; then
 echo "Dependencias para unir al dominio"
 sudo apt -y install sssd-ad sssd-tools realmd adcli sed 
 sudo apt-get -y install realmd packagekit
@@ -73,9 +76,17 @@ sudo realm discover lavoz.local
 sleep 5
 read -p "Ingrese el usuario del dominio: " usuarioAD
 sudo realm join -U ${usuarioAD} lavoz.local
-
 echo "Haciendo ajustes finales..."
 wait 2000
 echo "Script ejectuado.."
 echo "Echo por alejandro Capra."
+
+else
+echo "Haciendo ajustes finales..."
+wait 2000
+echo "Script ejectuado.."
+echo "Echo por alejandro Capra."
+
+fi
+
 
