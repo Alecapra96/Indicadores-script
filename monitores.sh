@@ -52,6 +52,14 @@ echo "Hago el autologin"
 sudo rm /etc/slim.conf
 sudo cp ~/indicadores-script/slim.conf /etc/
 sleep 2
+
+echo "Escriba 1 para si desea cambiarle el nombre al equipo"
+read "textoNombre"
+if [ "$textoNombre" = "1" ]; then
+read -p "Ingrese el nombre del equipo: " nombreEquipoo
+sudo hostnamectl set-hostname $nombreEquipoo
+fi
+
 echo "Escriba 1 para unir la maquina al dominio, escriba 2 para terminar el script."
 read "texto"
 if [ "$texto" = "1" ]; then
