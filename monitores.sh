@@ -53,6 +53,13 @@ sudo rm /etc/slim.conf
 sudo cp ~/indicadores-script/slim.conf /etc/
 sleep 2
 
+echo "Instalo ocs"
+wget http://old.kali.org/kali/pool/main/o/ocsinventory-agent/ocsinventory-agent_2.4.2-1_i386.deb
+sudo dpkg -i ocsinventory-agent_2.4.2-1_i386.deb
+sudo apt install --fix-broken
+sudo cp ~/indicadores-script/ocsinventory-agent.cfg /etc/ocsinventory-agent/
+sudo ocsinventory-agent -f
+
 echo "Escriba 1 para si desea cambiarle el nombre al equipo"
 read "textoNombre"
 if [ "$textoNombre" = "1" ]; then
