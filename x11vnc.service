@@ -1,14 +1,10 @@
 [Unit]
-Description=x11vnc VNC Server for X11
-Requires=kiosk.service
-After=kiosk.service 
+Description=Start x11vnc at startup.
+After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -auth /home/USUARIO/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900
-ExecStop=/usr/bin/killall x11vnc
-Restart=on-failure
-Restart-sec=2 
+ExecStart=/usr/bin/x11vnc -loop -forever -bg -rfbport 5900 -xkb -noxrecord -noxfixes -noxdamage -shared -norc -auth guess -rfbauth /etc/x11vnc.passwd
 
-[Install]
-WantedBy=graphical.target
+[Install] 
+WantedBy=multi-user.target
