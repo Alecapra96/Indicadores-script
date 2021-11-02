@@ -56,9 +56,20 @@ sleep 2
 echo "Instalo ocs"
 wget http://old.kali.org/kali/pool/main/o/ocsinventory-agent/ocsinventory-agent_2.4.2-1_i386.deb
 sudo dpkg -i ocsinventory-agent_2.4.2-1_i386.deb
-sudo apt install --fix-broken
+sudo apt -y install --fix-broken
 sudo cp ~/indicadores-script/ocsinventory-agent.cfg /etc/ocsinventory-agent/
 sudo ocsinventory-agent -f
+
+echo "Instalo VNC"
+sudo apt -y install x11vnc
+sudo x11vnc -storepasswd h4ck3rs /opt/x11vnc.passwd
+sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${HOSTNAME}/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900" ~/indicadores-script/x11vnc.service
+sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
+sudo systemctl enable x11vnc
+sudo systemctl start x11vnc
+
+
+
 
 echo "Escriba 1 para si desea cambiarle el nombre al equipo"
 read "textoNombre"
@@ -91,17 +102,36 @@ sudo realm discover lavoz.local
 sleep 5
 read -p "Ingrese el usuario del dominio: " usuarioAD
 sudo realm join -U ${usuarioAD} lavoz.local
+sudo realm permit -vR lavoz.local -g gs-soporte@lavoz.local
+
 echo "Haciendo ajustes finales..."
 wait 2000
 echo "Script ejectuado.."
 echo "Echo por alejandro Capra."
+sleep 1
+echo "Reiniciando."
+sleep 1
+echo "Reiniciando.."
+sleep 1
+echo "Reiniciando..."
+sleep 1
+echo "Reiniciando...."
+sudo reboot
 
 else
 echo "Haciendo ajustes finales..."
 wait 2000
 echo "Script ejectuado.."
 echo "Echo por alejandro Capra."
-
+sleep 1
+echo "Reiniciando."
+sleep 1
+echo "Reiniciando.."
+sleep 1
+echo "Reiniciando..."
+sleep 1
+echo "Reiniciando...."
+sudo reboot
 fi
 
 

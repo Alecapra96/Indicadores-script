@@ -1,0 +1,14 @@
+[Unit]
+Description=x11vnc VNC Server for X11
+Requires=kiosk.service
+After=kiosk.service 
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/x11vnc -auth /home/USUARIO/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900
+ExecStop=/usr/bin/killall x11vnc
+Restart=on-failure
+Restart-sec=2 
+
+[Install]
+WantedBy=graphical.target
