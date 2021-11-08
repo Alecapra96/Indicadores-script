@@ -1,2 +1,2 @@
 xset s off -dpms
-source ~/.xinitrc
+startx

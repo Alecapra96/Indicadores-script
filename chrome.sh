@@ -1,2 +1,2 @@
 #!/bin/sh
-google-chrome --kiosk --app="https://www.lavoz.com.ar" &
+google-chrome --kiosk --app="https://www.lavoz.com.ar" 

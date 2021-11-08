@@ -32,9 +32,7 @@ cp examples/sxhkdrc ~/.config/sxhkd/
 echo "Instalo el script de startx"
 sudo apt -y install xinit
 echo "Creo el archivo .xinitrc"
-#evitar correr procesos con .xinit, hacerlos servicios
-#LANZAR GOOGLE CHROME COMO SERVICIO
-#LANZAR VNC COMO SERVICIO
+
 mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
@@ -47,15 +45,16 @@ sudo apt -y remove snapd
 sudo apt -y purge snapd 
 
 echo "Hago el autologin"
-cp ~/indicadores-script/kiosk.sh /opt/ 
+sudo cp ~/indicadores-script/kiosk.sh /opt/ 
 sudo chmod +x /opt/kiosk.sh
 sudo cp ~/indicadores-script/kiosk.service /etc/systemd/system/
 sudo rm /etc/X11/Xwrapper.conf
-cp ~/indicadores-script/Xwrapper.conf /etc/X11/
+sudo cp ~/indicadores-script/Xwrapper.conf /etc/X11/
 sudo systemctl enable kiosk
 sleep 2
 
 echo "Instalo google chrome"
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt -y install ./google-chrome-stable_current_amd64.deb
 
 echo "Creo el servicio google chrome"
@@ -75,12 +74,14 @@ sudo ocsinventory-agent -f
 echo "Instalo VNC"
 sudo apt -y install x11vnc
 sudo x11vnc -storepasswd h4ck3rs /opt/x11vnc.passwd
-#Hacer que inicie vnc como servicio, por ahora esta iniciando en xinit
 sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${HOSTNAME}/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
 sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
 sudo systemctl enable x11vnc
 
-
+echo "inicio los servicios creados"
+sudo systemctl start kiosk
+sudo systemctl start x11vnc
+sudo systemctl start chrome
 
 
 echo "Escriba 1 para si desea cambiarle el nombre al equipo"
@@ -97,11 +98,7 @@ echo "Dependencias para unir al dominio"
 sudo apt -y install sssd-ad sssd-tools realmd adcli sed 
 sudo apt-get -y install realmd packagekit
 
-echo "inicio los servicios creados"
-sudo systemctl start kiosk
 
-sudo systemctl start x11vnc
-sudo systemctl start firefox
 
 echo "Preparando para unir al dominio"
 wait 5000

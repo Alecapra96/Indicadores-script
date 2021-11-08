@@ -3,7 +3,7 @@ Description=Kiosk Launcher
 After=systemd-user-sessions.service
 
 [Service]
-User=USUARIO
+User=sistemas
 ExecStart=/usr/bin/startx /etc/X11/Xsession /opt/kiosk.sh
 Restart=always
 
