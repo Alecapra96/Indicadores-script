@@ -9,7 +9,7 @@ sudo apt -y install && sudo apt -y upgrade
 echo $?
 
 echo "Instalo dependencias bases"
-sudo apt -y install --no-install-suggests --no-install-recommends xserver-xorg-core software-properties-common broadcom-sta-dkms cmake libfreetype6-dev libfontconfig1-dev xclip build-essential libx11-dev libxft-dev xterm build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev 
+apt -y install --no-install-suggests --no-install-recommends xserver-xorg-core software-properties-common broadcom-sta-dkms cmake libfreetype6-dev libfontconfig1-dev xclip build-essential libx11-dev libxft-dev xterm build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev 
 echo "Instalo BSPWM"
 git clone https://github.com/baskerville/bspwm.git
 git clone https://github.com/baskerville/sxhkd.git
@@ -30,32 +30,38 @@ chmod +x ~/.config/bspwm/bspwmrc
 cp examples/sxhkdrc ~/.config/sxhkd/
 
 echo "Instalo el script de startx"
-sudo apt -y install xinit
+apt -y install xinit
 echo "Creo el archivo .xinitrc"
 #evitar correr procesos con .xinit, hacerlos servicios
 #LANZAR GOOGLE CHROME COMO SERVICIO
 #LANZAR VNC COMO SERVICIO
-sudo mv ~/indicadores-script/.xinitrc ~/.xinitrc
+mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
 
 echo "Instalo programas base" 
-sudo apt -y install  rdesktop slim rxvt-unicode
+apt -y install  rdesktop rxvt-unicode
 
 echo "Remuevo cosas que ocupan espacio"
 sudo apt -y remove snapd
 sudo apt -y purge snapd 
 
+echo "Hago el autologin"
+cp ~/indicadores-script/kiosk.sh /opt/ 
+sudo chmod +x /opt/kiosk.sh
+sudo cp ~/indicadores-script/kiosk.service /etc/systemd/system/
+sudo systemctl enable kiosk
+sleep 2
 
 echo "Instalo google chrome"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt -y install ./google-chrome-stable_current_amd64.deb
+apt -y install ./google-chrome-stable_current_amd64.deb
 
-echo "Hago el autologin"
-#eLIMINAR slim y hacer el inicio sin el 
-sudo rm /etc/slim.conf
-sudo cp ~/indicadores-script/slim.conf /etc/
-sleep 2
+echo "Creo el servicio google chrome"
+cp ~/indicadores-script/chrome.sh /opt/
+cp ~/indicadores-script/chrome.service /etc/systemd/system/
+sudo chmod +x /opt/chrome.sh
+sudo systemctl enable chrome
+
 
 echo "Instalo ocs"
 wget http://old.kali.org/kali/pool/main/o/ocsinventory-agent/ocsinventory-agent_2.4.2-1_i386.deb
@@ -66,12 +72,12 @@ sudo ocsinventory-agent -f
 
 echo "Instalo VNC"
 sudo apt -y install x11vnc
-sudo x11vnc -storepasswd h4ck3rs /etc/x11vnc.passwd
+sudo x11vnc -storepasswd h4ck3rs /opt/x11vnc.passwd
 #Hacer que inicie vnc como servicio, por ahora esta iniciando en xinit
-sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${HOSTNAME}/.Xauthority -display WAIT:0 -forever -rfbauth /etc/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
+sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${HOSTNAME}/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
 sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
 sudo systemctl enable x11vnc
-sudo systemctl start x11vnc
+
 
 
 
@@ -89,6 +95,11 @@ echo "Dependencias para unir al dominio"
 sudo apt -y install sssd-ad sssd-tools realmd adcli sed 
 sudo apt-get -y install realmd packagekit
 
+echo inicio los servicios creados
+sudo systemctl start kiosk
+
+sudo systemctl start x11vnc
+sudo systemctl start firefox
 
 echo "Preparando para unir al dominio"
 wait 5000
@@ -135,6 +146,7 @@ sleep 1
 echo "Reiniciando..."
 sleep 1
 echo "Reiniciando...."
+
 sudo reboot
 fi
 

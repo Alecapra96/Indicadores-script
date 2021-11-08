@@ -1,0 +1,11 @@
+[Unit]
+Description=Kiosk Launcher
+After=systemd-user-sessions.service
+
+[Service]
+User=USUARIO
+ExecStart=/usr/bin/startx /etc/X11/Xsession /opt/kiosk.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
