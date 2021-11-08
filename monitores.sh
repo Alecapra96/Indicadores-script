@@ -50,6 +50,8 @@ echo "Hago el autologin"
 cp ~/indicadores-script/kiosk.sh /opt/ 
 sudo chmod +x /opt/kiosk.sh
 sudo cp ~/indicadores-script/kiosk.service /etc/systemd/system/
+sudo rm /etc/X11/Xwrapper.conf
+cp ~/indicadores-script/Xwrapper.conf /etc/X11/
 sudo systemctl enable kiosk
 sleep 2
 
