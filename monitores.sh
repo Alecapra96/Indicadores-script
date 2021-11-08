@@ -30,7 +30,7 @@ chmod +x ~/.config/bspwm/bspwmrc
 cp examples/sxhkdrc ~/.config/sxhkd/
 
 echo "Instalo el script de startx"
-apt -y install xinit
+sudo apt -y install xinit
 echo "Creo el archivo .xinitrc"
 #evitar correr procesos con .xinit, hacerlos servicios
 #LANZAR GOOGLE CHROME COMO SERVICIO
@@ -40,7 +40,7 @@ mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
 echo "Instalo programas base" 
-apt -y install  rdesktop rxvt-unicode
+sudo apt -y install  rdesktop rxvt-unicode
 
 echo "Remuevo cosas que ocupan espacio"
 sudo apt -y remove snapd
@@ -54,7 +54,7 @@ sudo systemctl enable kiosk
 sleep 2
 
 echo "Instalo google chrome"
-apt -y install ./google-chrome-stable_current_amd64.deb
+sudo apt -y install ./google-chrome-stable_current_amd64.deb
 
 echo "Creo el servicio google chrome"
 cp ~/indicadores-script/chrome.sh /opt/
@@ -95,7 +95,7 @@ echo "Dependencias para unir al dominio"
 sudo apt -y install sssd-ad sssd-tools realmd adcli sed 
 sudo apt-get -y install realmd packagekit
 
-echo inicio los servicios creados
+echo "inicio los servicios creados"
 sudo systemctl start kiosk
 
 sudo systemctl start x11vnc

@@ -10,8 +10,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   done
   unset f
 fi
-sudo x11vnc -rfbauth /etc/x11vnc.passwd
-xset s off -dpms
-google-chrome --kiosk --app="https://www.lavoz.com.ar" &
+
 exec bspwm
     
