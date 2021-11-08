@@ -48,8 +48,8 @@ echo "Hago el autologin"
 sudo cp ~/indicadores-script/kiosk.sh /opt/ 
 sudo chmod +x /opt/kiosk.sh
 sudo cp ~/indicadores-script/kiosk.service /etc/systemd/system/
-sudo rm /etc/X11/Xwrapper.conf
-sudo cp ~/indicadores-script/Xwrapper.conf /etc/X11/
+sudo rm /etc/X11/Xwrapper.config
+sudo cp ~/indicadores-script/Xwrapper.config /etc/X11/
 sudo systemctl enable kiosk
 sleep 2
 
@@ -58,7 +58,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt -y install ./google-chrome-stable_current_amd64.deb
 
 echo "Creo el servicio google chrome"
-cp ~/indicadores-script/chrome.sh /opt/
+sudo cp ~/indicadores-script/chrome.sh /opt/
 sudo cp ~/indicadores-script/chrome.service /etc/systemd/system/
 sudo chmod +x /opt/chrome.sh
 sudo systemctl enable chrome
@@ -72,9 +72,10 @@ sudo cp ~/indicadores-script/ocsinventory-agent.cfg /etc/ocsinventory-agent/
 sudo ocsinventory-agent -f
 
 echo "Instalo VNC"
+USER=whoami
 sudo apt -y install x11vnc
 sudo x11vnc -storepasswd h4ck3rs /opt/x11vnc.passwd
-sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${HOSTNAME}/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
+sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${USER}/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
 sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
 sudo systemctl enable x11vnc
 

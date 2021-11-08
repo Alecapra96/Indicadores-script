@@ -4,7 +4,7 @@ After=kiosk.service
 StartLimitIntervalSec=0
 
 [Service]
-Type=simple
+Environment="DISPLAY=:1"
 Restart=always
 RestartSec=1
 StartLimitIntervalSec=0
@@ -13,3 +13,4 @@ ExecStart=/bin/bash /opt/chrome.sh
 
 [Install]
 WantedBy=multi-user.target
+
