@@ -79,11 +79,6 @@ sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${USER}/.Xauthority -di
 sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
 sudo systemctl enable x11vnc
 
-echo "inicio los servicios creados"
-sudo systemctl start kiosk
-sudo systemctl start x11vnc
-sudo systemctl start chrome
-
 
 echo "Escriba 1 para si desea cambiarle el nombre al equipo"
 read "textoNombre"
@@ -130,6 +125,12 @@ echo "Reiniciando.."
 sleep 1
 echo "Reiniciando..."
 sleep 1
+
+echo "inicio los servicios creados"
+sudo systemctl start kiosk
+sudo systemctl start x11vnc
+sudo systemctl start chrome
+
 echo "Reiniciando...."
 sudo reboot
 
@@ -146,6 +147,12 @@ sleep 1
 echo "Reiniciando..."
 sleep 1
 echo "Reiniciando...."
+
+echo "inicio los servicios creados"
+sudo systemctl start kiosk
+sudo systemctl start x11vnc
+sudo systemctl start chrome
+
 
 sudo reboot
 fi
