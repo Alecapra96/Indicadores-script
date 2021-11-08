@@ -99,8 +99,8 @@ sudo apt-get -y install realmd packagekit
 echo "Preparando para unir al dominio"
 wait 5000
 nombreEquipo=hostname
-sudo sed -i "1s+.*+${HOSTNAME}.lavoz.local+g" /etc/hostname
-sudo sed -i "2s+.*+127.0.1.1       ${HOSTNAME}.lavoz.local+g" /etc/hosts
+sudo sed -i "1s+.*+${nombreEquipo}.lavoz.local+g" /etc/hostname
+sudo sed -i "2s+.*+127.0.1.1       ${nombreEquipo}.lavoz.local+g" /etc/hosts
 sudo rm /etc/systemd/timesyncd.conf
 sudo rm /etc/systemd/resolved.conf
 
