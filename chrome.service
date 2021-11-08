@@ -1,0 +1,15 @@
+[Unit]
+Description=Lanzamiento del navegador Google chrome
+After=kiosk.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+StartLimitIntervalSec=0
+User=sistemas
+ExecStart=/bin/bash /opt/chrome.sh
+
+[Install]
+WantedBy=multi-user.target
