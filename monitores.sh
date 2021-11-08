@@ -58,7 +58,7 @@ sudo apt -y install ./google-chrome-stable_current_amd64.deb
 
 echo "Creo el servicio google chrome"
 cp ~/indicadores-script/chrome.sh /opt/
-cp ~/indicadores-script/chrome.service /etc/systemd/system/
+sudo cp ~/indicadores-script/chrome.service /etc/systemd/system/
 sudo chmod +x /opt/chrome.sh
 sudo systemctl enable chrome
 
