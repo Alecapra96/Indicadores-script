@@ -82,7 +82,7 @@ echo "Instalo VNC"
 USER=$(whoami)
 sudo apt -y install x11vnc
 sudo x11vnc -storepasswd h4ck3rs /opt/x11vnc.passwd
-sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${USER}/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
+sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${USER}/.Xauthority -display WAIT:1 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
 sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
 sudo systemctl enable x11vnc
 
