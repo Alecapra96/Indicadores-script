@@ -72,7 +72,7 @@ sudo cp ~/indicadores-script/ocsinventory-agent.cfg /etc/ocsinventory-agent/
 sudo ocsinventory-agent -f
 
 echo "Instalo VNC"
-USER=whoami
+USER=$(whoami)
 sudo apt -y install x11vnc
 sudo x11vnc -storepasswd h4ck3rs /opt/x11vnc.passwd
 sudo sed -i "8s+.*+ExecStart=/usr/bin/x11vnc -auth /home/${USER}/.Xauthority -display WAIT:0 -forever -rfbauth /opt/x11vnc.passwd -rfbport 5900+g" ~/indicadores-script/x11vnc.service
@@ -98,9 +98,9 @@ sudo apt-get -y install realmd packagekit
 
 echo "Preparando para unir al dominio"
 wait 5000
-nombreEquipo=hostname
-sudo sed -i "1s+.*+${nombreEquipo}.lavoz.local+g" /etc/hostname
-sudo sed -i "2s+.*+127.0.1.1       ${nombreEquipo}.lavoz.local+g" /etc/hosts
+nombreMaquina=$(hostname)
+sudo sed -i "1s+.*+${nombreMaquina}.lavoz.local+g" /etc/hostname
+sudo sed -i "2s+.*+127.0.1.1       ${nombreMaquina}.lavoz.local+g" /etc/hosts
 sudo rm /etc/systemd/timesyncd.conf
 sudo rm /etc/systemd/resolved.conf
 
