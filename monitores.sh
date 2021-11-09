@@ -1,4 +1,10 @@
 #!/bin/sh
+sudo apt -y install dialog
+# creamos la funcion fundialog 
+fundialog=${fundialog=dialog}
+nombre=`$fundialog --stdout --title "nombre" --inputbox "Pon tu nombre:" 0 0`
+echo $nombre
+sleep 20
 echo "Bienvenidos al script para crear los monitores"
 echo "_______________________________________________"
 echo "Cargando..."
@@ -38,7 +44,7 @@ mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
 echo "Instalo programas base" 
-sudo apt -y install  rdesktop rxvt-unicode dialog
+sudo apt -y install  rdesktop rxvt-unicode 
 
 echo "Remuevo cosas que ocupan espacio"
 sudo apt -y remove snapd
