@@ -89,6 +89,7 @@ sudo systemctl enable x11vnc
 
 dialog  --title "Script de ale"  --yesno "¿Deseas cambiarle el nombre al equipo?" 0 0
 textoNombre=$?
+dialog --infobox "Recuerda que el nombre tiene que tener menos de 15 caracteres" 0 0 ; sleep 3
 
 if [ $textoNombre = "0" ]; then
 nombreEquipoo=`$fundialog --stdout --title "nombre" --inputbox "Escribe el nuevo nombre del equipo:" 0 0`
