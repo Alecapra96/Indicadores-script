@@ -38,7 +38,7 @@ mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
 echo "Instalo programas base" 
-sudo apt -y install  rdesktop rxvt-unicode
+sudo apt -y install  rdesktop rxvt-unicode dialog
 
 echo "Remuevo cosas que ocupan espacio"
 sudo apt -y remove snapd
