@@ -2,14 +2,15 @@
 sudo apt -y install dialog
 # creamos la funcion fundialog 
 fundialog=${fundialog=dialog}
-nombre=`$fundialog --stdout --title "nombre" --inputbox "Pon tu nombre:" 0 0`
-echo $nombre
-sleep 20
-echo "Bienvenidos al script para crear los monitores"
-echo "_______________________________________________"
-echo "Cargando..."
-wait 2000
-echo "Iniciando"
+
+
+
+#_______________
+nombre=`$fundialog --stdout dialog --infobox "Bienvenido al script para crear indicadores" 0 0 ; sleep 3`
+#________________
+
+
+
 echo "Actualizo el sistema"
 sudo apt -y install && sudo apt -y upgrade
 echo $?
@@ -86,16 +87,14 @@ sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
 sudo systemctl enable x11vnc
 
 
-echo "Escriba 1 para si desea cambiarle el nombre al equipo"
-read "textoNombre"
-if [ "$textoNombre" = "1" ]; then
-read -p "Ingrese el nombre del equipo: " nombreEquipoo
+textoNombre=`$fundialog --stdout --title "Script de ale"  --yesno "¿Deseas cambiarle el nombre al equipo?" 0 0`
+if [ "$textoNombre" = "0" ]; then
+nombreEquipoo=`$fundialog --stdout --title "nombre" --inputbox "Escribe el nuevo nombre del equipo:" 0 0`
 sudo hostnamectl set-hostname $nombreEquipoo
 fi
 
-echo "Escriba 1 para unir la maquina al dominio, escriba 2 para terminar el script."
-read "texto"
-if [ "$texto" = "1" ]; then
+texto=`$fundialog --stdout --title "Script de ale"  --yesno "¿Deseas unir el equipo al dominio?" 0 0`
+if [ "$texto" = "0" ]; then
 echo "Dependencias para unir al dominio"
 sudo apt -y install sssd-ad sssd-tools realmd adcli sed 
 sudo apt-get -y install realmd packagekit
