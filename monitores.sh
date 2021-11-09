@@ -87,19 +87,21 @@ sudo cp ~/indicadores-script/x11vnc.service /etc/systemd/system/
 sudo systemctl enable x11vnc
 
 
-textoNombre=`$fundialog --stdout --title "Script de ale"  --yesno "¿Deseas cambiarle el nombre al equipo?" 0 0`
-if [ "$textoNombre" = "0" ]; then
+dialog  --title "Script de ale"  --yesno "¿Deseas cambiarle el nombre al equipo?" 0 0
+textoNombre=$?
+
+if [ $textoNombre = "0" ]; then
 nombreEquipoo=`$fundialog --stdout --title "nombre" --inputbox "Escribe el nuevo nombre del equipo:" 0 0`
 sudo hostnamectl set-hostname $nombreEquipoo
 fi
 
-texto=`$fundialog --stdout --title "Script de ale"  --yesno "¿Deseas unir el equipo al dominio?" 0 0`
-if [ "$texto" = "0" ]; then
+
+dialog --title "Script de ale"  --yesno "¿Deseas unir el equipo al dominio?" 0 0
+texto=$?
+if [ $texto = "0" ]; then
 echo "Dependencias para unir al dominio"
 sudo apt -y install sssd-ad sssd-tools realmd adcli sed 
 sudo apt-get -y install realmd packagekit
-
-
 
 echo "Preparando para unir al dominio"
 wait 5000
