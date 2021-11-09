@@ -6,7 +6,7 @@ fundialog=${fundialog=dialog}
 
 
 #_______________
-nombre=`$fundialog --stdout dialog --infobox "Bienvenido al script para crear indicadores" 0 0 ; sleep 3`
+dialog --infobox "Bienvenido al script para crear indicadores" 0 0 ; sleep 3
 #________________
 
 
