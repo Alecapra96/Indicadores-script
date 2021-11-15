@@ -2,9 +2,7 @@
 sudo apt -y install dialog
 # creamos la funcion fundialog 
 fundialog=${fundialog=dialog}
-DIALOG=${DIALOG=dialog}
-tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/test$$
-trap "rm -f $tempfile" 0 1 2 5 15
+
 
 
 #_______________
@@ -86,7 +84,9 @@ sudo chmod +x /opt/firefox.sh
 sudo systemctl enable firefox
 fi
 
-
+DIALOG=${DIALOG=dialog}
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/test$$
+trap "rm -f $tempfile" 0 1 2 5 15
 $DIALOG --backtitle "Creado por ale" \
 	--title "PERMISOS DEL DOMINIO" --clear \
         --radiolist "Selecciona con la tecla space la opcion que deseas" 17 100 10 \
@@ -104,11 +104,12 @@ case $retval in
          1)
             sudo sed -i "2s+.*+firefox --kiosk www.lavoz.com.ar+g" /opt/firefox.sh
             sudo sed -i "2s+.*+google-chrome --kiosk www.lavoz.com.ar+g" /opt/chrome.sh
-
+            ;;
 
          2)
             sudo sed -i "2s+.*+firefox --kiosk https://app.powerbi.com/view?r=eyJrIjoiMDZhOWZjZWYtNjhmYS00YzNlLThiYTMtMGI5NjgyZWIxYmQzIiwidCI6IjQ3ZTViMTQwLTY3MjQtNGEwMS05YzM3LTllZmVlMjVhZTdhNCIsImMiOjR9+g" /opt/firefox.sh
             sudo sed -i "2s+.*+google-chrome --kiosk https://app.powerbi.com/view?r=eyJrIjoiMDZhOWZjZWYtNjhmYS00YzNlLThiYTMtMGI5NjgyZWIxYmQzIiwidCI6IjQ3ZTViMTQwLTY3MjQtNGEwMS05YzM3LTllZmVlMjVhZTdhNCIsImMiOjR9+g" /opt/chrome.sh
+            ;;
         esac
     else
     dialog --infobox "No elegiste ninguna opcion" 5 82 ; sleep 1
