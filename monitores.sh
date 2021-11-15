@@ -84,6 +84,39 @@ sudo chmod +x /opt/firefox.sh
 sudo systemctl enable firefox
 fi
 
+
+$fundialog --backtitle "Creado por ale" \
+	--title "PERMISOS DEL DOMINIO" --clear \
+        --radiolist "Selecciona con la tecla space la opcion que deseas" 17 100 10 \
+        "1"    "lavoz.com.ar" off \
+        "2"    "Tablero Powerbi" off 2> $tempfile
+
+retval=$?
+
+choice=`cat $tempfile`
+case $retval in
+  0)
+     if [ $? -eq 0 ] 
+    then
+        case $choice in
+         1)
+            sudo sed -i "2s+.*+firefox --kiosk www.lavoz.com.ar+g" /opt/firefox.sh
+            sudo sed -i "2s+.*+google-chrome --kiosk www.lavoz.com.ar+g" /opt/chrome.sh
+
+
+         2)
+            sudo sed -i "2s+.*+firefox --kiosk https://app.powerbi.com/view?r=eyJrIjoiMDZhOWZjZWYtNjhmYS00YzNlLThiYTMtMGI5NjgyZWIxYmQzIiwidCI6IjQ3ZTViMTQwLTY3MjQtNGEwMS05YzM3LTllZmVlMjVhZTdhNCIsImMiOjR9+g" /opt/firefox.sh
+            sudo sed -i "2s+.*+google-chrome --kiosk https://app.powerbi.com/view?r=eyJrIjoiMDZhOWZjZWYtNjhmYS00YzNlLThiYTMtMGI5NjgyZWIxYmQzIiwidCI6IjQ3ZTViMTQwLTY3MjQtNGEwMS05YzM3LTllZmVlMjVhZTdhNCIsImMiOjR9+g" /opt/chrome.sh
+        esac
+    else
+    dialog --infobox "No elegiste ninguna opcion" 5 82 ; sleep 1
+    fi
+  ;;
+  1)
+    echo "Cancel pressed.";;
+  255)
+    echo "ESC pressed.";;
+esac
 echo "Instalo ocs"
 wget http://old.kali.org/kali/pool/main/o/ocsinventory-agent/ocsinventory-agent_2.4.2-1_i386.deb
 sudo dpkg -i ocsinventory-agent_2.4.2-1_i386.deb
