@@ -1,0 +1,15 @@
+[Unit]
+Description=Lanzamiento del navegador Firefox
+After=kiosk.service
+Requires=kiosk.service
+
+[Service]
+Environment="DISPLAY=:1"
+Restart=always
+RestartSec=1
+User=sistemas
+ExecStart=/bin/bash /opt/Firefox.sh
+
+[Install]
+WantedBy=multi-user.target
+

@@ -60,6 +60,10 @@ sudo cp ~/indicadores-script/Xwrapper.config /etc/X11/
 sudo systemctl enable kiosk
 sleep 2
 
+dialog  --title "Script de ale"  --yesno "¿Deseas instalar Chrome? Si eliges NO se instalara firefox" 0 0
+desicionNavegador=$?
+
+if [ $desicionNavegador = "0" ]; then
 echo "Instalo google chrome"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt -y install ./google-chrome-stable_current_amd64.deb
@@ -69,7 +73,16 @@ sudo cp ~/indicadores-script/chrome.sh /opt/
 sudo cp ~/indicadores-script/chrome.service /etc/systemd/system/
 sudo chmod +x /opt/chrome.sh
 sudo systemctl enable chrome
+else
+echo "Instalo firefox "
+sudo apt -y install firefox
 
+echo "Creo el servicio firefox"
+sudo cp ~/indicadores-script/firefox.sh /opt/
+sudo cp ~/indicadores-script/firefox.service /etc/systemd/system/
+sudo chmod +x /opt/firefox.sh
+sudo systemctl enable firefox
+fi
 
 echo "Instalo ocs"
 wget http://old.kali.org/kali/pool/main/o/ocsinventory-agent/ocsinventory-agent_2.4.2-1_i386.deb
@@ -89,7 +102,7 @@ sudo systemctl enable x11vnc
 
 dialog  --title "Script de ale"  --yesno "¿Deseas cambiarle el nombre al equipo?" 0 0
 textoNombre=$?
-dialog --infobox "Recuerda que el nombre tiene que tener menos de 15 caracteres" 0 0 ; sleep 3
+dialog --infobox "Recuerda que el nombre tiene que tener menos de 15 caracteres" 0 0 ; sleep 1
 
 if [ $textoNombre = "0" ]; then
 nombreEquipoo=`$fundialog --stdout --title "nombre" --inputbox "Escribe el nuevo nombre del equipo:" 0 0`
