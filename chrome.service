@@ -1,13 +1,12 @@
 [Unit]
 Description=Lanzamiento del navegador Google chrome
 After=kiosk.service
-StartLimitIntervalSec=0
+Requires=kiosk.service
 
 [Service]
 Environment="DISPLAY=:1"
 Restart=always
 RestartSec=1
-StartLimitIntervalSec=0
 User=sistemas
 ExecStart=/bin/bash /opt/chrome.sh
 
