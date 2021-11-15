@@ -2,7 +2,9 @@
 sudo apt -y install dialog
 # creamos la funcion fundialog 
 fundialog=${fundialog=dialog}
-
+DIALOG=${DIALOG=dialog}
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/test$$
+trap "rm -f $tempfile" 0 1 2 5 1
 
 
 #_______________
@@ -85,7 +87,7 @@ sudo systemctl enable firefox
 fi
 
 
-$fundialog --backtitle "Creado por ale" \
+$DIALOG --backtitle "Creado por ale" \
 	--title "PERMISOS DEL DOMINIO" --clear \
         --radiolist "Selecciona con la tecla space la opcion que deseas" 17 100 10 \
         "1"    "lavoz.com.ar" off \
