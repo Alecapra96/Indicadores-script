@@ -8,7 +8,7 @@ Environment="DISPLAY=:1"
 Restart=always
 RestartSec=1
 User=sistemas
-ExecStart=/bin/bash /opt/Firefox.sh
+ExecStart=/bin/bash /opt/firefox.sh
 
 [Install]
 WantedBy=multi-user.target
