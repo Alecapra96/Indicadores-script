@@ -45,7 +45,7 @@ mv ~/indicadores-script/.xinitrc ~/.xinitrc
 
 
 echo "Instalo programas base" 
-sudo apt -y install  rdesktop rxvt-unicode unclutter
+sudo apt -y install  rdesktop rxvt-unicode unclutter x11-xserver-utils
 
 echo "Remuevo cosas que ocupan espacio"
 sudo apt -y remove snapd
